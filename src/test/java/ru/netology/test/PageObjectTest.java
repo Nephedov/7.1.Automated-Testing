@@ -39,14 +39,14 @@ public class PageObjectTest {
         Assertions.assertEquals(expectedBalanceSecondCardAfterTransaction, new DashboardPage().getSecondCardBalance());
     }
 
-//    @Test
-//    void invalidTransactionFromFirstToSecondCardTest() {
-//        new LoginPage().validLogIn().validVerify();
-//
-//        int amount = new DashboardPage().getFirstCardBalance() * 2;
-//
-//        new TransactionPage().fromFirstToSecondCardInvalidTransaction(amount);
-//    }
+    @Test
+    void invalidTransactionFromFirstToSecondCardTest() {
+        new LoginPage().validLogIn().validVerify();
+
+        int amount = new DashboardPage().getFirstCardBalance() * 2;
+
+        new TransactionPage().fromFirstToSecondCardInvalidTransaction(amount);
+    }
 
     @Test
     void invalidLoginTest() {
