@@ -12,14 +12,15 @@ public class PageObjectTest {
 
     @Test
     void validTransferTest() {
-        var loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogIn(authInfo);
         var verificationCode = DataHelper.getVerificationCode();
-        var dashboardPage = verificationPage.validVerify(verificationCode);
-
         var firstCardInfo = getFirstCardInfo();
         var secondCardInfo = getSecondCardInfo();
+
+        var loginPage = open("http://localhost:9999", LoginPage.class);
+        var verificationPage = loginPage.validLogIn(authInfo);
+        var dashboardPage = verificationPage.validVerify(verificationCode);
+
 
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
         var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
@@ -37,6 +38,34 @@ public class PageObjectTest {
 
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
+    }
+
+    @Test
+    void errorMessageIfAmountMoreBalance() {
+        var authInfo = DataHelper.getAuthInfo();
+        var verificationCode = DataHelper.getVerificationCode();
+        var firstCardInfo = getFirstCardInfo();
+        var secondCardInfo = getSecondCardInfo();
+
+
+        var loginPage = open("http://localhost:9999", LoginPage.class);
+        var verificationPage = loginPage.validLogIn(authInfo);
+        var dashboardPage = verificationPage.validVerify(verificationCode);
+
+        var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
+        var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+
+        var amount = generateInvalidAmount(secondCardBalance);
+        var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+        transferPage.makeTransfer(String.valueOf(amount), secondCardInfo);
+        transferPage.findErrorMessage("На Вашем счету недостаточно средств для выполнения перевода.");
+
+        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+
+        assertEquals(firstCardBalance, actualBalanceFirstCard);
+        assertEquals(secondCardBalance, actualBalanceSecondCard);
+
     }
 
 
