@@ -1,52 +1,35 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.data.Cards;
+import ru.netology.data.DataHelper;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static ru.netology.page.DashboardPage.*;
 
 public class TransactionPage {
-    private SelenideElement amountField = $("[data-test-id='amount'] input");
-    private SelenideElement cardNumberField = $("[data-test-id='from'] input");
-    private SelenideElement confirmButton = $("button[data-test-id='action-transfer']");
-    private SelenideElement reloadButton = $("button[data-test-id='action-reload']");
+    private SelenideElement amountInput = $("[data-test-id='amount'] input");
+    private SelenideElement fromInput = $("[data-test-id='from'] input");
+    private SelenideElement transferHead = $(byText("Пополнение карты"));
+    private SelenideElement transferButton = $("button[data-test-id='action-transfer']");
+    private SelenideElement errorMessage = $("[data-test-id='error-message']");
 
-    private SelenideElement errorNotification = $("[data-test-id='error-notification']");
-
-    public DashboardPage fromFirstToSecondCardValidTransaction(int cash) {
-        String amount = String.valueOf(cash);
-
-        depositSecondCardButton.click();
-        amountField.setValue(amount);
-        cardNumberField.setValue(new Cards().firstCard().getNumber());
-        confirmButton.click();
-        reloadButton.click();
+    public DashboardPage makeValidTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
+        makeTransfer(amountToTransfer, cardInfo);
         return new DashboardPage();
     }
 
-    public DashboardPage fromSecondToFirstCardValidTransaction(int cash) {
-        String amount = String.valueOf(cash);
-
-        depositFirstCardButton.click();
-        amountField.setValue(amount);
-        cardNumberField.setValue(new Cards().secondCard().getNumber());
-        confirmButton.click();
-        reloadButton.click();
-        return new DashboardPage();
+    public void makeTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
+        amountInput.setValue(amountToTransfer);
+        fromInput.setValue(cardInfo.getCardNumber());
+        transferButton.click();
     }
 
-    public TransactionPage fromFirstToSecondCardInvalidTransaction(int cash) {
-        String amount = String.valueOf(cash);
-
-        depositSecondCardButton.click();
-        amountField.setValue(amount);
-        cardNumberField.setValue(new Cards().firstCard().getNumber());
-        confirmButton.click();
-
-        errorNotification.shouldBe(Condition.visible);
-        return this;
+    public void findErrorMessage(String expectedText) {
+        errorMessage.shouldHave(exactText(expectedText), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
 }

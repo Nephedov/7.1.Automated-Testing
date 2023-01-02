@@ -1,34 +1,34 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
+import ru.netology.data.DataHelper;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DashboardPage {
 
     private ElementsCollection cards = $$(".list__item div");
+
+    private SelenideElement heading = $("[data-test-id='dashboard']");
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
-    public static SelenideElement depositFirstCardButton = $("[data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0'] button");
 
-    public static SelenideElement depositSecondCardButton = $("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d'] button");
 
     public DashboardPage() {
-        $("[data-test-id='dashboard']").shouldBe(Condition.visible).shouldHave(Condition.text("Личный кабинет"));
-        $("h1").shouldBe(Condition.visible).shouldHave(Condition.text("Ваши карты"));
+        heading.shouldBe(visible);
     }
 
-    public int getFirstCardBalance() {
-        val text = cards.first().text();
+    public int getCardBalance(DataHelper.CardInfo cardInfo) {
+        var text = cards.findBy(text(cardInfo.getCardNumber().substring(15))).getText();
         return extractBalance(text);
     }
 
-    public int getSecondCardBalance() {
-        val text = cards.last().text();
-        return extractBalance(text);
+    public TransactionPage selectCardToTransfer(DataHelper.CardInfo cardInfo) {
+        cards.findBy(attribute("data-test-id", cardInfo.getTestId())).$("button").click();
+        return new TransactionPage();
     }
 
 
