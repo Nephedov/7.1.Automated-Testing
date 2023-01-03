@@ -15,10 +15,14 @@ public class LoginPage {
     private SelenideElement loginButton;
 
     public VerificationPage validLogIn(DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
-        loginButton.click();
+        logIn(info.getLogin(), info.getPassword());
         return page(VerificationPage.class);
+    }
+
+    public void logIn(String login, String password) {
+        loginField.setValue(login);
+        passwordField.setValue(password);
+        loginButton.click();
     }
 
 }
