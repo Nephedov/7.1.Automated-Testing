@@ -6,10 +6,14 @@
 ### Задание 1
  * <a href="https://github.com/Nephedov/7.1.Automated-Testing/blob/aa5e610d557dfce2ed2e77d28390990fa4ebf722/src/test/java/ru/netology/PageObjectTest.java">PageObjectTest.java</a>. - класс с автотестами.
  * <a href="https://github.com/Nephedov/7.1.Automated-Testing/issues/1#issue-1510355774">Баг-репорт</a> по результатам тестирования.
+
+<a href="https://github.com/Nephedov/PageObjects">Репозиторий</a> с проектом.
 ### Задание 2
  * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/3ed31b2ee2be5228f064498e1b0723d5311e7f12/src/test/java/ru/netology/RunCucumberTest.java">RunCucumberTest.java</a>. - класс с автотестами, c описанием опций для Cucumber.
  * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/3ed31b2ee2be5228f064498e1b0723d5311e7f12/src/test/java/ru/netology/steps/TemplateSteps.java">TemplateSteps.java</a>. - класс steps для Cucumber.
  * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/3ed31b2ee2be5228f064498e1b0723d5311e7f12/src/test/resources/features/MoneyTransfer.feature">MoneyTransfer.feature</a>. - feature для Cucumber c описанием сценария.
+
+<a href="https://github.com/Nephedov/BDD">Репозиторий</a> с проектом.
 ## Что было сделано
 ### Задание 1
 * Настроен <a href="https://github.com/Nephedov/7.1.Automated-Testing/blob/d6640c6851ad0f40d365888382b9625910f1c336/build.gradle">build.gradle</a> с зависимостями:
