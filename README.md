@@ -42,6 +42,10 @@
   * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/main/src/test/resources/features/MoneyTransfer.feature">MoneyTransfer.feature</a> - с описанием тестового сценария.
   * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/main/src/test/java/ru/netology/steps/TemplateSteps.java">TemplateSteps.java</a> - описывающий реализацию и логику работы шагов.
   * <a href="https://github.com/Nephedov/7.2.Automated-Testing/blob/main/src/test/java/ru/netology/RunCucumberTest.java">RunCucumberTest.java</a> - класс запускающий тесты с Cucumber.
+
+---
+---
+
    
 ## Описание Задания №1: Page Object's
 
